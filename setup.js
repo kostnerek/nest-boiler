@@ -11,7 +11,7 @@ const BASE_URL = dirname(fileURLToPath(import.meta.url));
 
 
 const handleOrm = async (orm, projectName) => {
-  const outputPath = `${BASE_URL}/${projectName}/package.json`;
+  const outputPath = `${projectName}/package.json`;
   const basePackageJson = BASE_URL+'/base/package.json';
   console.log(orm, projectName)
   if (orm === ORMS.MONGOOSE) {
