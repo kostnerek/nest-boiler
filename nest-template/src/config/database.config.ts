@@ -1,16 +1,22 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { EnvironmentVariables } from "./env.variables";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose';
+
+import { EnvironmentVariables } from './env.variables';
+import { ServerConfig } from './server.config';
 
 @Injectable()
-export class DatabaseConfig { 
-  constructor(private readonly config: ConfigService<EnvironmentVariables>) {}
-
-  getUrl(): string {
-    return this.config.get<string>('DATABASE_URL');
+export class DatabaseConfig implements MongooseOptionsFactory {
+  serverConfig: any;
+  constructor(private readonly config: ConfigService<EnvironmentVariables>) {
+    this.serverConfig = new ServerConfig(config);
   }
 
-  getIsDbVerbose(): boolean {
-    return this.config.get<boolean>('DATABASE_VERBOSE');
+  createMongooseOptions(): MongooseModuleOptions {
+    return {
+      uri: this.config.get('DATABASE_URL'),
+      retryDelay: 1000,
+      retryAttempts: 1,
+    };
   }
 }

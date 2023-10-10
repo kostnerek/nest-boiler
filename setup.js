@@ -3,6 +3,8 @@ import { mergeJsons } from './tools/merge-package-json.js';
 import { ORMS } from './consts/orms.js';
 import { movePrisma } from './tools/orm/move-prisma.js';
 import { moveMongoose } from './tools/orm/move-mongoose.js';
+import path from 'path';
+
 
 const callback = (err) => {
   if (err) {
@@ -29,7 +31,7 @@ const handleOrm = (orm, projectName) => {
 export async function setup(answers) {
   const { packageManager, projectName, orm } = answers;
 
-  console.log('Creating project...', __dirname)
+  console.log('Creating project...', path.resolve(path.dirname('')))
   fs.mkdir(projectName);
   await fs.copy('./base', `./${projectName}`)
   handleOrm(orm, projectName)
