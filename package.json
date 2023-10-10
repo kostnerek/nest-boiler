@@ -1,0 +1,17 @@
+{
+  "name": "nest-template",
+  "version": "1.0.0",
+  "main": "bin.js",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "nest-template": "./bin.js"
+  },
+  "scripts": {
+    "start": "node bin.js"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "inquirer": "^9.2.11"
+  }
+}
