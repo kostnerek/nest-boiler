@@ -1,7 +1,8 @@
 import fs from 'fs-extra';
 import { mergeJsons } from './tools/merge-package-json.js';
 import { ORMS } from './consts/orms.js';
-
+import { movePrisma } from './tools/orm/move-prisma.js';
+import { moveMongoose } from './tools/orm/move-mongoose.js';
 
 const callback = (err) => {
   if (err) {
@@ -17,9 +18,11 @@ const handleOrm = (orm, projectName) => {
   console.log(orm, projectName)
   if (orm === ORMS.MONGOOSE) {
     mergeJsons(basePackageJson, './components/orm/mongoose/package.json', outputPath)
+    moveMongoose(projectName)
   }
   if (orm === ORMS.PRISMA) {
     mergeJsons(basePackageJson, './components/orm/prisma/package.json', outputPath)
+    movePrisma(projectName)
   }
 }
 
