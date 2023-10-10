@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 import inquirer from 'inquirer';
+import { setup } from './setup.js';
+import { PACKAGE_MANAGERS } from './consts/package-managers.js';
+import { ORMS } from './consts/orms.js';
 
 const packageManager = {
   type: 'list',
   name: 'packageManager',
   message: 'Which package manager would you like to use?',
-  choices: ['npm', 'yarn'],
+  choices: Object.values(PACKAGE_MANAGERS),
   default: 'npm',
 }
-
 const projectName = {
   type: 'input',
   name: 'projectName',
@@ -26,8 +28,8 @@ const orm = {
   type: 'list',
   name: 'orm',
   message: 'Which ORM would you like to use?',
-  choices: ['prisma', 'mongoose', 'none'],
-  default: 'none',
+  choices: Object.values(ORMS),
+  default: 'mongoose',
 }
 
 
@@ -38,7 +40,7 @@ inquirer
     orm,
   ])
   .then((answers) => {
-    console.log(answers);
+    setup(answers);
   })
   .catch((error) => {
     if (error.isTtyError) {
