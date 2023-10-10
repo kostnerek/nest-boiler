@@ -29,7 +29,7 @@ const handleOrm = (orm, projectName) => {
 export async function setup(answers) {
   const { packageManager, projectName, orm } = answers;
 
-  console.log('Creating project...')
+  console.log('Creating project...', __dirname)
   fs.mkdir(projectName);
   await fs.copy('./base', `./${projectName}`)
   handleOrm(orm, projectName)
