@@ -3,7 +3,8 @@ import { mergeJsons } from './tools/merge-package-json.js';
 import { ORMS } from './consts/orms.js';
 import { movePrisma } from './tools/orm/move-prisma.js';
 import { moveMongoose } from './tools/orm/move-mongoose.js';
-import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 
 const callback = (err) => {
@@ -31,7 +32,13 @@ const handleOrm = (orm, projectName) => {
 export async function setup(answers) {
   const { packageManager, projectName, orm } = answers;
 
-  console.log('Creating project...', path.resolve(path.dirname('')))
+
+
+// Get the directory of the current module (script)
+  const scriptDir = dirname(fileURLToPath(import.meta.url));
+  console.log(scriptDir)
+
+  console.log('Creating project...')
   fs.mkdir(projectName);
   await fs.copy('./base', `./${projectName}`)
   handleOrm(orm, projectName)
